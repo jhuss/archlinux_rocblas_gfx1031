@@ -1,0 +1,14 @@
+--- a/Tensile/Source/lib/include/Tensile/AMDGPU.hpp
++++ b/Tensile/Source/lib/include/Tensile/AMDGPU.hpp
+@@ -172,6 +172,10 @@
+             {
+                 return AMDGPU::Processor::gfx1030;
+             }
++            else if(deviceString.find("gfx1031") != std::string::npos)
++            {
++                return AMDGPU::Processor::gfx1031;
++            }
+             else if(deviceString.find("gfx1100") != std::string::npos)
+             {
+                 return AMDGPU::Processor::gfx1100;
+

@@ -1,0 +1,45 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -109,10 +109,10 @@
+ 
+ # setting target list based on ROCm version
+ if (NOT BUILD_ADDRESS_SANITIZER)
+-  set( TARGET_LIST_ROCM_5.6 "gfx803;gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102")
+-  set( TARGET_LIST_ROCM_5.7 "gfx803;gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx940;gfx941;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102")
+-  set( TARGET_LIST_ROCM_6.0 "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx940;gfx941;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102")
+-  set( TARGET_LIST_ROCM_6.3 "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102;gfx1151;gfx1200;gfx1201")
++  set( TARGET_LIST_ROCM_5.6 "gfx803;gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx1010;gfx1012;gfx1030;gfx1031;gfx1100;gfx1101;gfx1102")
++  set( TARGET_LIST_ROCM_5.7 "gfx803;gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx940;gfx941;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1100;gfx1101;gfx1102")
++  set( TARGET_LIST_ROCM_6.0 "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx940;gfx941;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1100;gfx1101;gfx1102")
++  set( TARGET_LIST_ROCM_6.3 "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1100;gfx1101;gfx1102;gfx1151;gfx1200;gfx1201")
+ else()
+   set( TARGET_LIST_ROCM_5.6 "gfx908:xnack+;gfx90a:xnack+")
+   set( TARGET_LIST_ROCM_5.7 "gfx908:xnack+;gfx90a:xnack+;gfx942:xnack+")
+
+--- a/library/src/handle.cpp
++++ b/library/src/handle.cpp
+@@ -133,6 +133,10 @@
+     else if(deviceString.find("gfx1030") != std::string::npos)
+     {
+         return Processor::gfx1030;
++    }
++    else if(deviceString.find("gfx1031") != std::string::npos)
++    {
++        return Processor::gfx1031;
+     }
+     else if(deviceString.find("gfx1100") != std::string::npos)
+     {
+
+--- a/library/src/tensile_host.cpp
++++ b/library/src/tensile_host.cpp
+@@ -298,6 +298,10 @@
+         else if(deviceString.find("gfx1030") != std::string::npos)
+         {
+             return Tensile::LazyLoadingInit::gfx1030;
++        }
++        else if(deviceString.find("gfx1031") != std::string::npos)
++        {
++            return Tensile::LazyLoadingInit::gfx1031;
+         }
+         else if(deviceString.find("gfx1100") != std::string::npos)
+         {
